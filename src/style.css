@@ -29,7 +29,7 @@ button {
 button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
-    transition: none; /* 禁用过渡效果 */
+    transition: none; /* Disable transition effects */
 }
 
 button:hover {

@@ -1,4 +1,4 @@
-const DURATION: number = 10; // 测试时长（秒）
+const DURATION: number = 10;
 
 const clickButton = document.getElementById('clickButton') as HTMLButtonElement;
 const timerDisplay = document.getElementById('timer') as HTMLParagraphElement;
@@ -11,7 +11,7 @@ let timeElapsed: number = 0;
 
 
 clickButton.addEventListener('click', (event: MouseEvent): void => {
-    if (clickButton.textContent === '开始测试') {
+    if (clickButton.textContent === 'Click to start') {
         startTest();
     } else {
         clicks++;
@@ -25,14 +25,14 @@ function startTest(): void {
     clicks = 0;
     timeElapsed = 0;
     startTime = Date.now();
-    cpsDisplay.textContent = 'CPS：0.00';
-    timerDisplay.textContent = '时间：10.0 秒';
-    clickButton.textContent = '点击我';
+    cpsDisplay.textContent = 'CPS: 0.00';
+    timerDisplay.textContent = 'Remain time: 10.0 s';
+    clickButton.textContent = 'Click me';
 
     timer = window.setInterval((): void => {
         timeElapsed = (Date.now() - startTime) / 1000;
         const remainingTime = DURATION - timeElapsed;
-        timerDisplay.textContent = `时间：${remainingTime.toFixed(1)} 秒`;
+        timerDisplay.textContent = `Remain time: ${remainingTime.toFixed(1)} s`;
 
         if (timeElapsed >= DURATION) {
             stopTest();
@@ -49,24 +49,24 @@ function stopTest(): void {
         timer = null;
     }
 
-    clickButton.textContent = '3.0 秒后可用';
+    clickButton.textContent = 'Available after 3.0 s';
     clickButton.disabled = true;
 
     let countdown: number = 3.0;
     const countdownInterval: number = window.setInterval((): void => {
         countdown -= 0.1;
-        clickButton.textContent = `${countdown.toFixed(1)} 秒后可用`;
+        clickButton.textContent = `Available after ${countdown.toFixed(1)} s`;
 
         if (countdown <= 0) {
             clearInterval(countdownInterval);
-            clickButton.textContent = '开始测试';
+            clickButton.textContent = 'Click to start';
             clickButton.disabled = false;
         }
     }, 100);
 
     const finalCPS = clicks / DURATION;
-    cpsDisplay.textContent = `最终 CPS：${finalCPS.toFixed(2)}`;
-    timerDisplay.textContent = '时间：0.0 秒';
+    cpsDisplay.textContent = `Final CPS: ${finalCPS.toFixed(2)}`;
+    timerDisplay.textContent = 'Remain time: 0.0 s';
 }
 
 
@@ -74,7 +74,7 @@ function updateCPS(): void {
     const currentTime: number = Date.now();
     const elapsedTime: number = (currentTime - startTime) / 1000;
     const cps: string = elapsedTime > 0 ? (clicks / elapsedTime).toFixed(2) : '0.00';
-    cpsDisplay.textContent = `CPS：${cps}`;
+    cpsDisplay.textContent = `CPS: ${cps}`;
 }
 
 
@@ -94,7 +94,7 @@ function createRipple(event: MouseEvent): void {
     ripple.style.transform = 'scale(0)';
     ripple.style.opacity = '1';
     ripple.style.transition = 'transform 0.5s, opacity 0.5s';
-    ripple.style.pointerEvents = 'none'; // 防止干扰点击
+    ripple.style.pointerEvents = 'none'; // Preventing click interference.
 
     ripple.addEventListener('transitionend', (): void => {
         ripple.remove();
@@ -102,7 +102,7 @@ function createRipple(event: MouseEvent): void {
 
     clickButton.appendChild(ripple);
 
-    // 使用 requestAnimationFrame 确保过渡生效
+    // Makesure the transition takes effect.
     requestAnimationFrame((): void => {
         ripple.style.transform = 'scale(2)';
         ripple.style.opacity = '0';
