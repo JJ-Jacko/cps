@@ -112,7 +112,7 @@ clickButton.addEventListener('click', (event: MouseEvent): void => {
     if (programStatus === 'Ready') {
         programStatus = 'Recording';
         startTest();
-    } else {
+    } else if (programStatus === 'Recording') {
         clicks++;
         updateCPS();
         createRipple(event);
