@@ -1,6 +1,6 @@
 const clickButton = document.getElementById('clickButton') as HTMLButtonElement;
-const timerDisplay = document.getElementById('timer') as HTMLParagraphElement;
-const cpsDisplay = document.getElementById('cps') as HTMLParagraphElement;
+const displayTime = document.getElementById('display-time') as HTMLParagraphElement;
+const displayCPS = document.getElementById('display-CPS') as HTMLParagraphElement;
 
 const DURATION: number = 10;
 
@@ -21,7 +21,7 @@ function startTest(): void {
     timer = window.setInterval((): void => {
         timeElapsed = (Date.now() - startTime) / 1000;
         const remainingTime = DURATION - timeElapsed;
-        timerDisplay.textContent = `Remain time: ${remainingTime.toFixed(1)} s`;
+        displayTime.textContent = `Remain time: ${remainingTime.toFixed(1)} s`;
 
         if (timeElapsed >= DURATION) {
             stopTest();
@@ -55,7 +55,7 @@ function stopTest(): void {
     }, 100);
 
     const finalCPS = clicks / DURATION;
-    cpsDisplay.textContent = `Final CPS: ${finalCPS.toFixed(2)}`;
+    displayCPS.textContent = `Final CPS: ${finalCPS.toFixed(2)}`;
     timerDisplayReset();
 }
 
@@ -63,7 +63,7 @@ function updateCPS(): void {
     const currentTime: number = Date.now();
     const elapsedTime: number = (currentTime - startTime) / 1000;
     const cps: string = elapsedTime > 0 ? (clicks / elapsedTime).toFixed(2) : '0.00';
-    cpsDisplay.textContent = `CPS: ${cps}`;
+    displayCPS.textContent = `CPS: ${cps}`;
 }
 
 function createRipple(event: MouseEvent): void {
@@ -98,12 +98,12 @@ function createRipple(event: MouseEvent): void {
 }
 
 function timerDisplayReset() {
-    timerDisplay.textContent = `Remain time: ${DURATION.toFixed(1)} s`;
+    displayTime.textContent = `Remain time: ${DURATION.toFixed(1)} s`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     clickButton.textContent = 'Click to start';
-    cpsDisplay.textContent = 'CPS: 0.00';
+    displayCPS.textContent = 'CPS: 0.00';
     timerDisplayReset();
     programStatus = 'Ready';
 });
