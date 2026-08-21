@@ -1,32 +1,13 @@
-const DURATION: number = 10;
-
 const clickButton = document.getElementById('clickButton') as HTMLButtonElement;
 const timerDisplay = document.getElementById('timer') as HTMLParagraphElement;
 const cpsDisplay = document.getElementById('cps') as HTMLParagraphElement;
+
+const DURATION: number = 10;
 
 let timer: number | null = null;
 let startTime: number = 0;
 let clicks: number = 0;
 let timeElapsed: number = 0;
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    clickButton.textContent = 'Click to start';
-    cpsDisplay.textContent = 'CPS: 0.00';
-    timerDisplayReset();
-});
-
-
-clickButton.addEventListener('click', (event: MouseEvent): void => {
-    if (clickButton.textContent === 'Click to start') {
-        startTest();
-    } else {
-        clicks++;
-        updateCPS();
-        createRipple(event);
-    }
-});
-
 
 function startTest(): void {
     clicks = 0;
@@ -46,7 +27,6 @@ function startTest(): void {
         }
     }, 100);
 }
-
 
 function stopTest(): void {
     if (timer !== null) {
@@ -74,14 +54,12 @@ function stopTest(): void {
     timerDisplayReset();
 }
 
-
 function updateCPS(): void {
     const currentTime: number = Date.now();
     const elapsedTime: number = (currentTime - startTime) / 1000;
     const cps: string = elapsedTime > 0 ? (clicks / elapsedTime).toFixed(2) : '0.00';
     cpsDisplay.textContent = `CPS: ${cps}`;
 }
-
 
 function createRipple(event: MouseEvent): void {
     const buttonRect: DOMRect = clickButton.getBoundingClientRect();
@@ -114,7 +92,22 @@ function createRipple(event: MouseEvent): void {
     });
 }
 
-
 function timerDisplayReset() {
     timerDisplay.textContent = `Remain time: ${DURATION.toFixed(1)} s`;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    clickButton.textContent = 'Click to start';
+    cpsDisplay.textContent = 'CPS: 0.00';
+    timerDisplayReset();
+});
+
+clickButton.addEventListener('click', (event: MouseEvent): void => {
+    if (clickButton.textContent === 'Click to start') {
+        startTest();
+    } else {
+        clicks++;
+        updateCPS();
+        createRipple(event);
+    }
+});
