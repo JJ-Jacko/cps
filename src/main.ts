@@ -4,10 +4,13 @@ const cpsDisplay = document.getElementById('cps') as HTMLParagraphElement;
 
 const DURATION: number = 10;
 
+type ProgramStatus = "Ready" | "Recording" | "Cooldown";
+
 let timer: number | null = null;
 let startTime: number = 0;
 let clicks: number = 0;
 let timeElapsed: number = 0;
+let programStatus: ProgramStatus;
 
 function startTest(): void {
     clicks = 0;
@@ -22,6 +25,7 @@ function startTest(): void {
 
         if (timeElapsed >= DURATION) {
             stopTest();
+            programStatus = 'Cooldown';
         } else {
             updateCPS();
         }
@@ -46,6 +50,7 @@ function stopTest(): void {
             clearInterval(countdownInterval);
             clickButton.textContent = 'Click to start';
             clickButton.disabled = false;
+            programStatus = 'Ready';
         }
     }, 100);
 
@@ -100,10 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
     clickButton.textContent = 'Click to start';
     cpsDisplay.textContent = 'CPS: 0.00';
     timerDisplayReset();
+    programStatus = 'Ready';
 });
 
 clickButton.addEventListener('click', (event: MouseEvent): void => {
-    if (clickButton.textContent === 'Click to start') {
+    if (programStatus === 'Ready') {
+        programStatus = 'Recording';
         startTest();
     } else {
         clicks++;
