@@ -10,6 +10,11 @@ let clicks: number = 0;
 let timeElapsed: number = 0;
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    timerDisplayReset();
+});
+
+
 clickButton.addEventListener('click', (event: MouseEvent): void => {
     if (clickButton.textContent === 'Click to start') {
         startTest();
@@ -26,7 +31,6 @@ function startTest(): void {
     timeElapsed = 0;
     startTime = Date.now();
     cpsDisplay.textContent = 'CPS: 0.00';
-    timerDisplay.textContent = 'Remain time: 10.0 s';
     clickButton.textContent = 'Click me';
 
     timer = window.setInterval((): void => {
@@ -66,7 +70,7 @@ function stopTest(): void {
 
     const finalCPS = clicks / DURATION;
     cpsDisplay.textContent = `Final CPS: ${finalCPS.toFixed(2)}`;
-    timerDisplay.textContent = 'Remain time: 0.0 s';
+    timerDisplayReset();
 }
 
 
@@ -107,4 +111,9 @@ function createRipple(event: MouseEvent): void {
         ripple.style.transform = 'scale(2)';
         ripple.style.opacity = '0';
     });
+}
+
+
+function timerDisplayReset() {
+    timerDisplay.textContent = `Remain time: ${DURATION.toFixed(1)} s`;
 }
