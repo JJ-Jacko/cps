@@ -11,6 +11,8 @@ let timeElapsed: number = 0;
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    clickButton.textContent = 'Click to start';
+    cpsDisplay.textContent = 'CPS: 0.00';
     timerDisplayReset();
 });
 
@@ -30,7 +32,6 @@ function startTest(): void {
     clicks = 0;
     timeElapsed = 0;
     startTime = Date.now();
-    cpsDisplay.textContent = 'CPS: 0.00';
     clickButton.textContent = 'Click me';
 
     timer = window.setInterval((): void => {
