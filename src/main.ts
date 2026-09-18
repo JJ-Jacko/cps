@@ -1,10 +1,11 @@
-const clickButton = document.getElementById('clickButton') as HTMLButtonElement;
-const displayTime = document.getElementById('display-time') as HTMLParagraphElement;
-const displayCPS = document.getElementById('display-CPS') as HTMLParagraphElement;
+import {
+    DURATION,
+    clickButton,
+    displayCPS,
+    displayTime,
+} from "./constants";
+import type { ProgramStatus } from "./datas";
 
-const DURATION: number = 10;
-
-type ProgramStatus = "Ready" | "Recording" | "Cooldown";
 
 let timer: number | null = null;
 let startTime: number = 0;
